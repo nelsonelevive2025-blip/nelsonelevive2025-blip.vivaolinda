@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Produção Bloco C e D - Amarelo & Preto</title>
+
+<!-- Fonte limpa -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+    font-family: 'Orbitron', Arial, sans-serif;
+    text-align: center;
+    background-color: #000; /* fundo preto sólido */
+    color: #FFD700; /* texto amarelo */
+    margin: 20px 0;
+}
+
+/* Títulos simples */
+h1, h2, h3 {
+    color: #FFD700;
+    margin: 15px 0;
+}
+
+/* Cards de dias estilo tabela simples */
+.dia {
+    margin: 10px auto;
+    padding: 12px;
+    background-color: #111; /* preto escuro */
+    border: 2px solid #FFD700; /* contorno amarelo */
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 500px;
+    font-size: 16px;
+}
+
+/* Botões simples amarelo */
+button {
+    padding: 6px 12px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #FFD700;
+    color: #000;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #FFF200;
+}
+
+/* Botão concluído */
+.concluido {
+    background-color: #00FF00 !important;
+    color: #111;
+}
+hr {
+    border: 1px solid #FFD700;
+    margin: 30px 0;
+}
+
+/* Login */
+#login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#login input {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 4px;
+    border: none;
+    font-size: 16px;
+}
+
+#login button {
+    margin-top: 10px;
+}
+
+#erro {
+    color: red;
+    margin-top: 5px;
+}
+
+#content {
+    display: none; /* conteúdo só aparece após login */
+}
+</style>
+</head>
+
+<body>
+
+<!-- Tela de login -->
+<div id="login">
+  <h2>Seja bem-vindo(a)!</h2>
+  <input type="text" id="user" placeholder="Usuário">
+  <input type="password" id="pass" placeholder="Senha">
+  <button onclick="login()">Entrar</button>
+  <p id="erro"></p>
+</div>
+
+<!-- Conteúdo protegido -->
+<div id="content">
+
+<h1>Produção - Bloco C</h1>
+<h2 id="faltando">Apartamentos faltando: 40</h2>
+
+<h2>📅 Fevereiro</h2>
+<div class="dia">19/02 (Quinta) - 403, 404, 401 <button onclick="produzir(this)">OK</button></div>
+<div class="dia">20/02 (Sexta) - 402, 405, 406 <button onclick="produzir(this)">OK</button></div>
+<div class="dia">23/02 (Segunda) - 407, 408, 409 <button onclick="produzir(this)">OK</button></div>
+<div class="dia">24/02 (Terça) - 410, 503, 504 <button onclick="produzir(this)">OK</button></div>
+<div class="dia">25/02 (Quarta) - 501, 502, 505 <button onclick="produzir(this)">OK</button></div>
+<div class="dia">26/02 (Quinta) - 506, 507, 508 <button onclick="produzir(this)">OK</button></div>
+<div class="dia">27/02 (Sexta) - 509, 510, 603 <button onclick="produzir(this)">OK</button></div>
+<div class="dia">28/02 (Sábado) - 604, 601, 602 <button onclick="produzir(this)">OK</button></div>
+
+<hr>
+
+<h2>📅 Março</h2>
+<h3>Semana 1</h3>
+<div class="dia">02/03 (Segunda) - 605, 606, 607 <button onclick="produzir(this)">OK</button></div>
+<div class="dia">03/03 (Terça) - 608, 609, 610 <button onclick="produzir(this)">OK</button></div>
+<div class="dia">04/03 (Quarta) - 703, 704, 701 <button onclick="produzir(this)">OK</button></div>
+<div class="dia">05/03 (Quinta) - 702, 705, 706 <button onclick="produzir(this)">OK</button></div>
+<div class="dia">06/03 (Sexta) - 707, 708, 709 <button onclick="produzir(this)">OK</button></div>
+
+<h3>Semana 2</h3>
+<div class="dia">09/03 (Segunda) - 710, BD03, BD04 <button onclick="produzir(this)">OK</button></div>
+
+<hr>
+
+<h1>Produção - Bloco D</h1>
+<h2 id="faltandoD">Apartamentos faltando: 78</h2>
+
+<h2>📅 Março</h2>
+<h3>Semana 1</h3>
+<div class="dia">10/03 (Terça) - 01, 02, 05 <button onclick="produzirD(this)">OK</button></div>
+<div class="dia">11/03 (Quarta) - 06, 07, 08 <button onclick="produzirD(this)">OK</button></div>
+<div class="dia">12/03 (Quinta) - 09, 010, 103 <button onclick="produzirD(this)">OK</button></div>
+<div class="dia">13/03 (Sexta) - 104, 101, 102 <button onclick="produzirD(this)">OK</button></div>
+
+<h3>Semana 2</h3>
+<div class="dia">16/03 (Segunda) - 105, 106, 107 <button onclick="produzirD(this)">OK</button></div>
+<div class="dia">17/03 (Terça) - 108, 109, 110 <button onclick="produzirD(this)">OK</button></div>
+<div class="dia">18/03 (Quarta) - 203, 204, 201 <button onclick="produzirD(this)">OK</button></div>
+<div class="dia">19/03 (Quinta) - 202, 205, 206 <button onclick="produzirD(this)">OK</button></div>
+<div class="dia">20/03 (Sexta) - 207, 208, 209 <button onclick="produzirD(this)">OK</button></div>
+
+<h3>Semana 3</h3>
+<div class="dia">23/03 (Segunda) - 210, 303, 304 <button onclick="produzirD(this)">OK</button></div>
+<div class="dia">24/03 (Terça) - 301, 302, 305 <button onclick="produzirD(this)">OK</button></div>
+<div class="dia">25/03 (Quarta) - 306, 307, 308 <button onclick="produzirD(this)">OK</button></div>
+<div class="dia">26/03 (Quinta) - 309, 310, 403 <button onclick="produzirD(this)">OK</button></div>
+<div class="dia">27/03 (Sexta) - 404, 401, 402 <button onclick="produzirD(this)">OK</button></div>
+
+<h3>Semana 4</h3>
+<div class="dia">30/03 (Segunda) - 405, 406, 407 <button onclick="produzirD(this)">OK</button></div>
+<div class="dia">31/03 (Terça) - 408, 409, 410 <button onclick="produzirD(this)">OK</button></div>
+
+<h2>📅 Abril</h2>
+<h3>Semana 1</h3>
+<div class="dia">01/04 (Quarta) - 503, 504, 501 <button onclick="produzirD(this)">OK</button></div>
+<div class="dia">02/04 (Quinta) - 502, 505, 506 <button onclick="produzirD(this)">OK</button></div>
+<div class="dia">03/04 (Sexta) - 507, 508, 509 <button onclick="produzirD(this)">OK</button></div>
+
+<h3>Semana 2</h3>
+<div class="dia">06/04 (Segunda) - 510, 603, 604 <button onclick="produzirD(this)">OK</button></div>
+<div class="dia">07/04 (Terça) - 601, 602, 605 <button onclick="produzirD(this)">OK</button></div>
+<div class="dia">08/04 (Quarta) - 606, 607, 608 <button onclick="produzirD(this)">OK</button></div>
+<div class="dia">09/04 (Quinta) - 609, 610, 703 <button onclick="produzirD(this)">OK</button></div>
+<div class="dia">10/04 (Sexta) - 704, 701, 702 <button onclick="produzirD(this)">OK</button></div>
+
+<h3>Semana 3</h3>
+<div class="dia">13/04 (Segunda) - 705, 706, 707 <button onclick="produzirD(this)">OK</button></div>
+<div class="dia">14/04 (Terça) - 708, 709, 710 <button onclick="produzirD(this)">OK</button></div>
+
+</div> <!-- fim content -->
+
+<script>
+// Usuários e tipos
+const usuarios = [
+    { user: "nelson", pass: "4321", tipo: "admin" },
+    { user: "dudu", pass: "4321", tipo: "admin" },
+    { user: "rafaelly", pass: "1234", tipo: "visual" },
+    {user:  "luiz", pass: "1234", tipo:"visual"}
+    
+];
+
+// Login
+function login() {
+    // pega os valores digitados
+    const userInput = document.getElementById("user").value.trim().toLowerCase(); 
+    const passInput = document.getElementById("pass").value;
+
+    // procura usuário válido (ignora maiúsculas/minúsculas no nome)
+    const valid = usuarios.find(u => u.user.toLowerCase() === userInput && u.pass === passInput);
+
+    if(valid){
+        document.getElementById("login").style.display = "none";
+        document.getElementById("content").style.display = "block";
+
+        // Se for visualizador, desativa todos os botões
+        if(valid.tipo === "visual") {
+            const botoes = document.querySelectorAll(".dia button");
+            botoes.forEach(b => b.disabled = true);
+        }
+    } else {
+        document.getElementById("erro").innerText = "Usuário ou senha incorretos!";
+    }
+}
+
+// Bloco C
+let faltando = 40;
+function produzir(botao){
+    if(!botao.disabled && faltando > 0){
+        let texto = botao.parentElement.innerText.split("-")[1].trim();
+        let apartamentos = texto.split(",").map(a => a.trim());
+        faltando -= apartamentos.length;
+        if(faltando < 0) faltando = 0;
+        document.getElementById("faltando").innerText =
+            "Apartamentos faltando: " + faltando;
+        botao.innerText = "Concluído";
+        botao.classList.add("concluido");
+        botao.disabled = true;
+    }
+}
+
+// Bloco D
+let faltandoD = 78;
+function produzirD(botao){
+    if(!botao.disabled && faltandoD > 0){
+        let texto = botao.parentElement.innerText.split("-")[1].trim();
+        let apartamentos = texto.split(",").map(a => a.trim());
+        faltandoD -= apartamentos.length;
+        if(faltandoD < 0) faltandoD = 0;
+        document.getElementById("faltandoD").innerText =
+            "Apartamentos faltando: " + faltandoD;
+        botao.innerText = "Concluído";
+        botao.classList.add("concluido");
+        botao.disabled = true;
+    }
+}
+</script>
+
+</body>
+</html>
