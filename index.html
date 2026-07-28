@@ -1,253 +1,397 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<title>Produção Bloco C e D - Amarelo & Preto</title>
+<!DOCTYPE html>  <html lang="pt-BR">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>RL Instalações</title>  <style>  
+  
+*{  
+margin:0;  
+padding:0;  
+box-sizing:border-box;  
+font-family:Arial,Helvetica,sans-serif;  
+}  
+  
+body{  
+background:#111827;  
+color:white;  
+}  
+  
+#login{  
+height:100vh;  
+display:flex;  
+justify-content:center;  
+align-items:center;  
+padding:20px;  
+}  
+  
+.card{  
+width:100%;  
+max-width:380px;  
+background:#1f2937;  
+padding:25px;  
+border-radius:18px;  
+box-shadow:0 0 25px rgba(0,0,0,.4);  
+}  
+  
+.logo{  
+font-size:30px;  
+font-weight:bold;  
+text-align:center;  
+color:#22c55e;  
+margin-bottom:10px;  
+}  
+  
+.sub{  
+text-align:center;  
+color:#bbb;  
+margin-bottom:25px;  
+}  
+  
+input{  
+width:100%;  
+padding:14px;  
+margin-bottom:15px;  
+border:none;  
+border-radius:10px;  
+background:#374151;  
+color:white;  
+font-size:16px;  
+}  
+  
+button{  
+width:100%;  
+padding:14px;  
+border:none;  
+border-radius:10px;  
+font-size:16px;  
+font-weight:bold;  
+cursor:pointer;  
+}  
+  
+#entrar{  
+background:#22c55e;  
+color:white;  
+}  
+  
+#erro{  
+margin-top:15px;  
+text-align:center;  
+color:#ef4444;  
+display:none;  
+}  
+  
+#app{  
+display:none;  
+padding:15px;  
+}  
+  
+header{  
+background:#1f2937;  
+padding:18px;  
+border-radius:15px;  
+margin-bottom:20px;  
+box-shadow:0 0 15px rgba(0,0,0,.3);  
+}  
+  
+header h1{  
+font-size:25px;  
+}  
+  
+header p{  
+color:#cbd5e1;  
+margin-top:5px;  
+}  
+  
+.barra{  
+height:18px;  
+background:#374151;  
+border-radius:20px;  
+margin-top:15px;  
+overflow:hidden;  
+}  
+  
+.progresso{  
+height:100%;  
+width:0%;  
+background:#22c55e;  
+transition:.5s;  
+}  
+  
+#textoProgresso{  
+margin-top:10px;  
+font-size:14px;  
+}  
+  
+.ap{  
+background:#1f2937;  
+padding:15px;  
+border-radius:15px;  
+margin-bottom:12px;  
+display:flex;  
+justify-content:space-between;  
+align-items:center;  
+transition:.4s;  
+box-shadow:0 0 10px rgba(0,0,0,.2);  
+}  
+  
+.ap.feito{  
+background:#166534;  
+}  
+  
+.info h3{  
+margin-bottom:5px;  
+}  
+  
+.info span{  
+color:#d1d5db;  
+font-size:14px;  
+}  
+  
+.botoes{  
+display:flex;  
+gap:8px;  
+}  
+  
+.feitoBtn{  
+background:#22c55e;  
+color:white;  
+padding:10px 14px;  
+border:none;  
+border-radius:8px;  
+}  
+  
+.desfazerBtn{  
+background:#ef4444;  
+color:white;  
+padding:10px 14px;  
+border:none;  
+border-radius:8px;  
+}  
+  
+#salvar{  
+position:fixed;  
+bottom:20px;  
+right:20px;  
+width:auto;  
+padding:15px 22px;  
+background:#2563eb;  
+border-radius:50px;  
+color:white;  
+font-weight:bold;  
+box-shadow:0 0 15px rgba(0,0,0,.4);  
+}  
+  
+#sair{  
+margin-top:15px;  
+background:#ef4444;  
+}  
+  
+#ultima{  
+margin-top:20px;  
+text-align:center;  
+color:#9ca3af;  
+font-size:13px;  
+}  
+  
+</style>  </head>  <body>  <div id="login">  <div class="card">  <div class="logo">  
+RL Instalações  
+</div>  <div class="sub">  
+Controle de Cronograma  
+</div>  <input  
+type="text"  
+id="usuario"  
+placeholder="Usuário">
 
-<!-- Fonte limpa -->
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<input  
+type="password"  
+id="senha"  
+placeholder="Senha">
 
-<style>
-body {
-    font-family: 'Orbitron', Arial, sans-serif;
-    text-align: center;
-    background-color: #000; /* fundo preto sólido */
-    color: #FFD700; /* texto amarelo */
-    margin: 20px 0;
-}
-
-/* Títulos simples */
-h1, h2, h3 {
-    color: #FFD700;
-    margin: 15px 0;
-}
-
-/* Cards de dias estilo tabela simples */
-.dia {
-    margin: 10px auto;
-    padding: 12px;
-    background-color: #111; /* preto escuro */
-    border: 2px solid #FFD700; /* contorno amarelo */
-    border-radius: 6px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 500px;
-    font-size: 16px;
-}
-
-/* Botões simples amarelo */
-button {
-    padding: 6px 12px;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-    background-color: #FFD700;
-    color: #000;
-    font-weight: bold;
-    transition: background-color 0.2s;
-}
-
-button:hover {
-    background-color: #FFF200;
-}
-
-/* Botão concluído */
-.concluido {
-    background-color: #00FF00 !important;
-    color: #111;
-}
-hr {
-    border: 1px solid #FFD700;
-    margin: 30px 0;
-}
-
-/* Login */
-#login {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-#login input {
-    padding: 10px;
-    margin: 5px;
-    border-radius: 4px;
-    border: none;
-    font-size: 16px;
-}
-
-#login button {
-    margin-top: 10px;
-}
-
-#erro {
-    color: red;
-    margin-top: 5px;
-}
-
-#content {
-    display: none; /* conteúdo só aparece após login */
-}
-</style>
-</head>
-
-<body>
-
-<!-- Tela de login -->
-<div id="login">
-  <h2>Seja bem-vindo(a)!</h2>
-  <input type="text" id="user" placeholder="Usuário">
-  <input type="password" id="pass" placeholder="Senha">
-  <button onclick="login()">Entrar</button>
-  <p id="erro"></p>
-</div>
-
-<!-- Conteúdo protegido -->
-<div id="content">
-
-<h1>Produção - Bloco C</h1>
-<h2 id="faltando">Apartamentos faltando: 40</h2>
-
-<h2>📅 Fevereiro</h2>
-<div class="dia">19/02 (Quinta) - 403, 404, 401 <button onclick="produzir(this)">OK</button></div>
-<div class="dia">20/02 (Sexta) - 402, 405, 406 <button onclick="produzir(this)">OK</button></div>
-<div class="dia">23/02 (Segunda) - 407, 408, 409 <button onclick="produzir(this)">OK</button></div>
-<div class="dia">24/02 (Terça) - 410, 503, 504 <button onclick="produzir(this)">OK</button></div>
-<div class="dia">25/02 (Quarta) - 501, 502, 505 <button onclick="produzir(this)">OK</button></div>
-<div class="dia">26/02 (Quinta) - 506, 507, 508 <button onclick="produzir(this)">OK</button></div>
-<div class="dia">27/02 (Sexta) - 509, 510, 603 <button onclick="produzir(this)">OK</button></div>
-<div class="dia">28/02 (Sábado) - 604, 601, 602 <button onclick="produzir(this)">OK</button></div>
-
-<hr>
-
-<h2>📅 Março</h2>
-<h3>Semana 1</h3>
-<div class="dia">02/03 (Segunda) - 605, 606, 607 <button onclick="produzir(this)">OK</button></div>
-<div class="dia">03/03 (Terça) - 608, 609, 610 <button onclick="produzir(this)">OK</button></div>
-<div class="dia">04/03 (Quarta) - 703, 704, 701 <button onclick="produzir(this)">OK</button></div>
-<div class="dia">05/03 (Quinta) - 702, 705, 706 <button onclick="produzir(this)">OK</button></div>
-<div class="dia">06/03 (Sexta) - 707, 708, 709 <button onclick="produzir(this)">OK</button></div>
-
-<h3>Semana 2</h3>
-<div class="dia">09/03 (Segunda) - 710, BD03, BD04 <button onclick="produzir(this)">OK</button></div>
-
-<hr>
-
-<h1>Produção - Bloco D</h1>
-<h2 id="faltandoD">Apartamentos faltando: 78</h2>
-
-<h2>📅 Março</h2>
-<h3>Semana 1</h3>
-<div class="dia">10/03 (Terça) - 01, 02, 05 <button onclick="produzirD(this)">OK</button></div>
-<div class="dia">11/03 (Quarta) - 06, 07, 08 <button onclick="produzirD(this)">OK</button></div>
-<div class="dia">12/03 (Quinta) - 09, 010, 103 <button onclick="produzirD(this)">OK</button></div>
-<div class="dia">13/03 (Sexta) - 104, 101, 102 <button onclick="produzirD(this)">OK</button></div>
-
-<h3>Semana 2</h3>
-<div class="dia">16/03 (Segunda) - 105, 106, 107 <button onclick="produzirD(this)">OK</button></div>
-<div class="dia">17/03 (Terça) - 108, 109, 110 <button onclick="produzirD(this)">OK</button></div>
-<div class="dia">18/03 (Quarta) - 203, 204, 201 <button onclick="produzirD(this)">OK</button></div>
-<div class="dia">19/03 (Quinta) - 202, 205, 206 <button onclick="produzirD(this)">OK</button></div>
-<div class="dia">20/03 (Sexta) - 207, 208, 209 <button onclick="produzirD(this)">OK</button></div>
-
-<h3>Semana 3</h3>
-<div class="dia">23/03 (Segunda) - 210, 303, 304 <button onclick="produzirD(this)">OK</button></div>
-<div class="dia">24/03 (Terça) - 301, 302, 305 <button onclick="produzirD(this)">OK</button></div>
-<div class="dia">25/03 (Quarta) - 306, 307, 308 <button onclick="produzirD(this)">OK</button></div>
-<div class="dia">26/03 (Quinta) - 309, 310, 403 <button onclick="produzirD(this)">OK</button></div>
-<div class="dia">27/03 (Sexta) - 404, 401, 402 <button onclick="produzirD(this)">OK</button></div>
-
-<h3>Semana 4</h3>
-<div class="dia">30/03 (Segunda) - 405, 406, 407 <button onclick="produzirD(this)">OK</button></div>
-<div class="dia">31/03 (Terça) - 408, 409, 410 <button onclick="produzirD(this)">OK</button></div>
-
-<h2>📅 Abril</h2>
-<h3>Semana 1</h3>
-<div class="dia">01/04 (Quarta) - 503, 504, 501 <button onclick="produzirD(this)">OK</button></div>
-<div class="dia">02/04 (Quinta) - 502, 505, 506 <button onclick="produzirD(this)">OK</button></div>
-<div class="dia">03/04 (Sexta) - 507, 508, 509 <button onclick="produzirD(this)">OK</button></div>
-
-<h3>Semana 2</h3>
-<div class="dia">06/04 (Segunda) - 510, 603, 604 <button onclick="produzirD(this)">OK</button></div>
-<div class="dia">07/04 (Terça) - 601, 602, 605 <button onclick="produzirD(this)">OK</button></div>
-<div class="dia">08/04 (Quarta) - 606, 607, 608 <button onclick="produzirD(this)">OK</button></div>
-<div class="dia">09/04 (Quinta) - 609, 610, 703 <button onclick="produzirD(this)">OK</button></div>
-<div class="dia">10/04 (Sexta) - 704, 701, 702 <button onclick="produzirD(this)">OK</button></div>
-
-<h3>Semana 3</h3>
-<div class="dia">13/04 (Segunda) - 705, 706, 707 <button onclick="produzirD(this)">OK</button></div>
-<div class="dia">14/04 (Terça) - 708, 709, 710 <button onclick="produzirD(this)">OK</button></div>
-
-</div> <!-- fim content -->
-
-<script>
-// Usuários e tipos
-const usuarios = [
-    { user: "nelson", pass: "4321", tipo: "admin" },
-    { user: "dudu", pass: "4321", tipo: "admin" },
-    { user: "rafaelly", pass: "1234", tipo: "visual" },
-    {user:  "luiz", pass: "1234", tipo:"visual"}
+<button id="entrar">  
+Entrar  
+</button>  <div id="erro">  
+Usuário ou senha inválidos.  
+</div>  </div>  </div>  <div id="app">  <header>  <h1>RL Instalações</h1>  <p id="nomeUsuario"></p>  <div class="barra">  
+<div class="progresso" id="barra"></div>  
+</div>  <p id="textoProgresso">  
+0 de 10 apartamentos concluídos  
+</p>  </header>  <div id="listaApartamentos"></div>  <button id="salvar">  
+💾 Salvar  
+</button>  <button id="sair">  
+Sair  
+</button>  <div id="ultima"></div>  </div>  <script>  
+  
+let usuarioLogado="";  
+  
+let apartamentos=JSON.parse(localStorage.getItem("apartamentos"))||[  
+false,false,false,false,false,  
+false,false,false,false,false  
+];  
+  
+let ultimaAtualizacao=localStorage.getItem("ultima")||"Nunca";  
+  
+const lista=document.getElementById("listaApartamentos");  
+const barra=document.getElementById("barra");  
+const   
+texto=document.getElementById("textoProgresso");  
+  function atualizarTela(){  
+  
+lista.innerHTML="";  
+  
+let concluidos=0;  
+  
+apartamentos.forEach((feito,index)=>{  
+  
+if(feito) concluidos++;  
+  
+let card=document.createElement("div");  
+card.className="ap";  
+  
+if(feito){  
+card.classList.add("feito");  
+}  
+  
+let status=feito?"🟢 Concluído":"⏳ Pendente";  
+  
+card.innerHTML=`  
+<div class="info">  
+<h3>Apartamento ${(index+1).toString().padStart(2,"0")}</h3>  
+<span>${status}</span>  
+</div>  
+`;  
+  
+if(usuarioLogado==="admin"){  
+  
+let botoes=document.createElement("div");  
+botoes.className="botoes";  
+  
+let feitoBtn=document.createElement("button");  
+feitoBtn.className="feitoBtn";  
+feitoBtn.textContent="Feito";  
+  
+feitoBtn.onclick=function(){  
+apartamentos[index]=true;  
+atualizarTela();  
+};  
+  
+let desfazerBtn=document.createElement("button");  
+desfazerBtn.className="desfazerBtn";  
+desfazerBtn.textContent="Desfazer";  
+  
+desfazerBtn.onclick=function(){  
+apartamentos[index]=false;  
+atualizarTela();  
+};  
+  
+botoes.appendChild(feitoBtn);  
+botoes.appendChild(desfazerBtn);  
+  
+card.appendChild(botoes);  
+  
+}  
+  
+lista.appendChild(card);  
+  
+});  
+  
+let porcentagem=(concluidos/apartamentos.length)*100;  
+  
+barra.style.width=porcentagem+"%";  
+  
+texto.innerHTML=  
+concluidos+  
+" de "+  
+apartamentos.length+  
+" apartamentos concluídos";  
+  
+document.getElementById("ultima").innerHTML=  
+"Última atualização: "+ultimaAtualizacao;  
+  
+}  
+  
+document.getElementById("entrar").onclick=function(){  
+  
+let usuario=document.getElementById("usuario").value.trim();  
+let senha=document.getElementById("senha").value;  
+  
+if(usuario==="Nelson" && senha==="Nelson1"){  
+  
+usuarioLogado="admin";  
+  
+document.getElementById("nomeUsuario").innerHTML=  
+"Administrador • Nelson";  
+  
+document.getElementById("login").style.display="none";  
+document.getElementById("app").style.display="block";  
+  
+document.getElementById("salvar").style.display="block";  
+  
+atualizarTela();  
+  
+return;  
+  
+}  
+  
+if(usuario==="Rafaela" && senha==="RL Instalações"){  
+  
+usuarioLogado="visitante";  
+  
+document.getElementById("nomeUsuario").innerHTML=  
+"Visitante • Rafaela";  
+  
+document.getElementById("login").style.display="none";  
+document.getElementById("app").style.display="block";  
+  
+document.getElementById("salvar").style.display="none";  
+  
+atualizarTela();  
+  
+return;  
+  
+}  
+  
+document.getElementById("erro").style.display="block";  
+  
+};  
+  
+document.getElementById("sair").onclick=function(){  
+  
+location.reload();  
+  
+};  
     
-];
-
-// Login
-function login() {
-    // pega os valores digitados
-    const userInput = document.getElementById("user").value.trim().toLowerCase(); 
-    const passInput = document.getElementById("pass").value;
-
-    // procura usuário válido (ignora maiúsculas/minúsculas no nome)
-    const valid = usuarios.find(u => u.user.toLowerCase() === userInput && u.pass === passInput);
-
-    if(valid){
-        document.getElementById("login").style.display = "none";
-        document.getElementById("content").style.display = "block";
-
-        // Se for visualizador, desativa todos os botões
-        if(valid.tipo === "visual") {
-            const botoes = document.querySelectorAll(".dia button");
-            botoes.forEach(b => b.disabled = true);
-        }
-    } else {
-        document.getElementById("erro").innerText = "Usuário ou senha incorretos!";
-    }
-}
-
-// Bloco C
-let faltando = 40;
-function produzir(botao){
-    if(!botao.disabled && faltando > 0){
-        let texto = botao.parentElement.innerText.split("-")[1].trim();
-        let apartamentos = texto.split(",").map(a => a.trim());
-        faltando -= apartamentos.length;
-        if(faltando < 0) faltando = 0;
-        document.getElementById("faltando").innerText =
-            "Apartamentos faltando: " + faltando;
-        botao.innerText = "Concluído";
-        botao.classList.add("concluido");
-        botao.disabled = true;
-    }
-}
-
-// Bloco D
-let faltandoD = 78;
-function produzirD(botao){
-    if(!botao.disabled && faltandoD > 0){
-        let texto = botao.parentElement.innerText.split("-")[1].trim();
-        let apartamentos = texto.split(",").map(a => a.trim());
-        faltandoD -= apartamentos.length;
-        if(faltandoD < 0) faltandoD = 0;
-        document.getElementById("faltandoD").innerText =
-            "Apartamentos faltando: " + faltandoD;
-        botao.innerText = "Concluído";
-        botao.classList.add("concluido");
-        botao.disabled = true;
-    }
-}
-</script>
-
-</body>
-</html>
+document.getElementById("salvar").onclick=function(){  
+  
+localStorage.setItem(  
+"apartamentos",  
+JSON.stringify(apartamentos)  
+);  
+  
+let agora=new Date();  
+  
+let dia=String(agora.getDate()).padStart(2,"0");  
+let mes=String(agora.getMonth()+1).padStart(2,"0");  
+let ano=agora.getFullYear();  
+  
+let hora=String(agora.getHours()).padStart(2,"0");  
+let minuto=String(agora.getMinutes()).padStart(2,"0");  
+  
+ultimaAtualizacao=  
+dia+"/"+mes+"/"+ano+  
+" às "+  
+hora+":"+minuto;  
+  
+localStorage.setItem(  
+"ultima",  
+ultimaAtualizacao  
+);  
+  
+atualizarTela();  
+  
+alert("Cronograma salvo com sucesso!");  
+  
+};  
+  
+atualizarTela();  
+  
+</script>  </body>  
+</html> 
